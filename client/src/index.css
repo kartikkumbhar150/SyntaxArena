@@ -1,350 +1,111 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --color-bg-primary: #0d1117;
-    --color-bg-secondary: #161b22;
-    --color-bg-tertiary: #1c2128;
-    --color-bg-elevated: #21262d;
-    --color-border: #30363d;
-    --color-border-subtle: #21262d;
-    --color-text-primary: #e6edf3;
-    --color-text-secondary: #8b949e;
-    --color-text-muted: #484f58;
-    --color-accent-blue: #388bfd;
-    --color-accent-purple: #a371f7;
-    --color-accent-green: #3fb950;
-    --color-accent-yellow: #d29922;
-    --color-accent-red: #f85149;
-    --color-accent-orange: #db6d28;
-    --color-score-gold: #ffd700;
-  }
+/* 
+ * react-split-pane custom styles 
+ * Since react-split-pane applies inline styles, we use CSS overrides
+ * for the resizer draggers.
+ */
+.Resizer {
+  background: #262626; /* neutral-800 */
+  opacity: 1;
+  z-index: 10;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  transition: all 0.2s ease;
 }
 
-@layer base {
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    font-size: 14px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--color-bg-secondary);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-secondary);
-  }
+.Resizer:hover {
+  background: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
 }
 
-@layer components {
-  /* Glassmorphism card */
-  .glass-card {
-    background: rgba(22, 27, 34, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-  }
+.Resizer.horizontal {
+  height: 6px;
+  cursor: row-resize;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-  /* Premium gradient text */
-  .gradient-text {
-    background: linear-gradient(135deg, #388bfd, #a371f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.Resizer.vertical {
+  width: 6px;
+  cursor: col-resize;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-  /* Score badge */
-  .score-badge {
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
-    font-size: 2rem;
-  }
+.Resizer.disabled {
+  cursor: not-allowed;
+}
 
-  /* Btn variants */
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #388bfd, #1f6feb);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-  .btn-primary:hover {
-    background: linear-gradient(135deg, #4d9bff, #388bfd);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(56, 139, 253, 0.35);
-  }
-  .btn-primary:active {
-    transform: translateY(0);
-  }
+.Resizer.disabled:hover {
+  border-color: transparent;
+}
 
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: var(--color-bg-elevated);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-  .btn-secondary:hover {
-    background: var(--color-bg-tertiary);
-    border-color: var(--color-text-secondary);
-    transform: translateY(-1px);
-  }
+/* Custom Webkit Scrollbar for IDE */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  .btn-danger {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: var(--color-accent-red);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .btn-danger:hover {
-    background: #ff6b63;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(248, 81, 73, 0.35);
-  }
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    background: transparent;
-    color: var(--color-text-secondary);
-    border: 1px solid transparent;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .btn-ghost:hover {
-    background: var(--color-bg-elevated);
-    color: var(--color-text-primary);
-    border-color: var(--color-border);
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f3f46; /* neutral-700 */
+  border-radius: 4px;
+}
 
-  /* Input */
-  .input-field {
-    width: 100%;
-    padding: 10px 14px;
-    background: var(--color-bg-tertiary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .input-field::placeholder {
-    color: var(--color-text-muted);
-  }
-  .input-field:focus {
-    border-color: var(--color-accent-blue);
-    box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.15);
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #52525b; /* neutral-600 */
+}
 
-  /* Tag badges */
-  .tag-easy {
-    display: inline-block;
-    padding: 2px 8px;
-    background: rgba(63, 185, 80, 0.15);
-    color: var(--color-accent-green);
-    border: 1px solid rgba(63, 185, 80, 0.3);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-  .tag-medium {
-    display: inline-block;
-    padding: 2px 8px;
-    background: rgba(210, 153, 34, 0.15);
-    color: var(--color-accent-yellow);
-    border: 1px solid rgba(210, 153, 34, 0.3);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-  .tag-hard {
-    display: inline-block;
-    padding: 2px 8px;
-    background: rgba(248, 81, 73, 0.15);
-    color: var(--color-accent-red);
-    border: 1px solid rgba(248, 81, 73, 0.3);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
+/* Markdown prose overrides for dark mode readability */
+.prose-invert pre {
+  background-color: #0a0a0a !important; /* neutral-950 */
+  border: 1px solid #262626 !important; /* neutral-800 */
+}
 
-  /* Pass/Fail badges */
-  .badge-pass {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 10px;
-    background: rgba(63, 185, 80, 0.15);
-    color: var(--color-accent-green);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .badge-fail {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 10px;
-    background: rgba(248, 81, 73, 0.15);
-    color: var(--color-accent-red);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .badge-tle {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 10px;
-    background: rgba(210, 153, 34, 0.15);
-    color: var(--color-accent-yellow);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
+.prose-invert code {
+  color: #a78bfa; /* purple-400 */
+  background-color: #0a0a0a;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+}
 
-  /* Sidebar nav item */
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.15s ease;
-    cursor: pointer;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-  }
-  .nav-item:hover {
-    background: var(--color-bg-elevated);
-    color: var(--color-text-primary);
-  }
-  .nav-item.active {
-    background: rgba(56, 139, 253, 0.15);
-    color: var(--color-accent-blue);
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0a; /* neutral-950 */
+  color: #f5f5f5; /* neutral-100 */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden; /* App takes full screen, specific containers scroll */
+}
 
-  /* Stat card */
-  .stat-card {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 24px;
-    transition: all 0.2s ease;
-  }
-  .stat-card:hover {
-    border-color: var(--color-accent-blue);
-    box-shadow: 0 4px 24px rgba(56, 139, 253, 0.1);
-    transform: translateY(-2px);
-  }
+/* Ensure app wrapper takes up full viewport height without bouncing in Safari */
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Proctoring flag indicator */
-  .integrity-high {
-    color: var(--color-accent-green);
-  }
-  .integrity-medium {
-    color: var(--color-accent-yellow);
-  }
-  .integrity-low {
-    color: var(--color-accent-red);
-  }
-
-  /* Animate */
-  .fade-in {
-    animation: fadeIn 0.3s ease forwards;
-  }
-  .slide-up {
-    animation: slideUp 0.35s ease forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Loading pulse */
-  .pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* Split pane overrides */
-  .split-pane-resizer {
-    background: var(--color-border) !important;
-    width: 3px !important;
-    transition: background 0.15s;
-  }
-  .split-pane-resizer:hover {
-    background: var(--color-accent-blue) !important;
-    cursor: col-resize;
-  }
+/* IDE specific scrollbars to match VSCode / Monaco feel */
+.ide-layout *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.ide-layout *::-webkit-scrollbar-track { background: transparent; }
+.ide-layout *::-webkit-scrollbar-thumb { 
+  background: rgba(100, 100, 100, 0.2); 
+  border: 2px solid transparent; 
+  background-clip: padding-box; 
+  border-radius: 5px; 
+}
+.ide-layout *::-webkit-scrollbar-thumb:hover { 
+  background: rgba(100, 100, 100, 0.4); 
+  border: 2px solid transparent; 
+  background-clip: padding-box; 
+  border-radius: 5px; 
 }
