@@ -1,0 +1,6 @@
+@SyntaxArena.API_HostAddress = http://localhost:5183
+
+GET {{SyntaxArena.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
