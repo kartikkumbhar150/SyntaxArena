@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SyntaxArena.API.Services;
 
 namespace SyntaxArena.API.Controllers
 {
@@ -6,6 +7,13 @@ namespace SyntaxArena.API.Controllers
     [Route("api/[controller]")]
     public class AssessmentController : ControllerBase
     {
+        private readonly IRabbitMQProducer _producer;
+
+        public AssessmentController(IRabbitMQProducer producer)
+        {
+            _producer = producer;
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetProblem(string id)
         {
@@ -24,13 +32,18 @@ namespace SyntaxArena.API.Controllers
         [HttpPost("{id}/run")]
         public IActionResult RunCode(string id, [FromBody] RunCodeRequest request)
         {
-            // Stub: Module 6 will handle real execution
-            return Ok(new
+            // Publish the task to RabbitMQ to be handled by the ExecutionWorker
+            _producer.SendCodeExecutionTask(new {
+                AssessmentId = id,
+                Code = request.Code,
+                Language = request.Language,
+                Timestamp = DateTime.UtcNow
+            });
+
+            return Accepted(new
             {
-                Status = "Passed",
-                ExecutionTimeMs = 45,
-                MemoryUsedKb = 12000,
-                Output = "Test cases passed successfully."
+                Status = "Queued",
+                Message = "Code execution request added to the queue."
             });
         }
     }

@@ -1,7 +1,13 @@
+using SyntaxArena.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IRabbitMQProducer, RabbitMQProducer>();
+builder.Services.AddHostedService<ExecutionWorker>();
+
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -34,5 +40,6 @@ app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<SyntaxArena.API.Hubs.CollaborationHub>("/hubs/collaboration");
 
 app.Run();
